@@ -1,6 +1,7 @@
 const form = document.getElementById('chat-form');
 const input = document.getElementById('user-input');
 const chatBox = document.getElementById('chat-box');
+const converter = new showdown.Converter();
 
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
@@ -62,7 +63,8 @@ function appendMessage(sender, text) {
   msgWrapper.classList.add('message-wrapper', sender);
   const msg = document.createElement('div');
   msg.classList.add('message', sender);
-  msg.innerHTML = marked.parse(text);
+  // msg.innerHTML = marked.parse(text);
+  msg.innerHTML = converter.makeHtml(text);
   msgWrapper.appendChild(msg);
   chatBox.appendChild(msgWrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
